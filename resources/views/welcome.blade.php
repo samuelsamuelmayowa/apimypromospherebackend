@@ -7,6 +7,12 @@
 </head>
 <body>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quia amet voluptatem dolore quas similique magni et omnis nostrum dignissimos odit, facere, optio quo? Enim eaque consequatur magni magnam in?
+
+    <button>SAVE</button>
+
+
+    
+    <button>SAVE</button>
     
 </body>
 </html>
