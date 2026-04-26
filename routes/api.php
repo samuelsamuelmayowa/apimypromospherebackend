@@ -22,40 +22,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 
+// Public Api for login and Sighup 
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/sighup', [AuthController::class, 'sighup']);
+Route::post('/logout', [AuthController::class, 'logout']);
+
+
+
 
 Route::post('/store', [RegisterController::class, 'store']);
-
-Route::post('/update-profile', function (Request $request) {
-    $id = $request->id;
-    $UserName = $request->UserName;
-    $name = $request->name;
-
-    DB::update("UPDATE users SET name = '$name' WHERE id = '$id'  AND UserName ='$UserName' ");
-
-    return response()->json(['message' => 'Profile Updated']);
-});
- 
-Route::get('/profiletest/{id}', function (Request $request) {
-    $id = $request->id;
-    // DELIBERATELY VULNERABLE SQL - FOR LEARNING ONLY
-    $profile = DB::select("SELECT * FROM users WHERE id = '$id'");
-    return response()->json(['data' => $profile]);
-});
-
-
-Route::post('/test-sqli', function (Request $request) {
-    $email = $request->email;
-    $password = $request->password;
-
-    // DELIBERATELY VULNERABLE SQL - FOR LEARNING ONLY
-    $users = DB::select("SELECT * FROM users WHERE email = '$email' AND password = '$password'"  );
-
-    if ($users) {
-        return response()->json(['message' => 'Login Success', 'data' => $users]);
-    } else {
-        return response()->json(['message' => 'Login Failed'], 401);
-    }
-});
 
 
 // admin for loing  
@@ -151,10 +126,6 @@ Route::get('/promotweetfeedback/{itemid}', [PromoTweet::class, 'getfeedback']);
 
 
 // -------- PROMOTWEET ---------------------------
-// Public Api for login and Sighup 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/sighup', [AuthController::class, 'sighup']);
-Route::post('/logout', [AuthController::class, 'logout']);
 
 
 // /// tesinng the uploading part 
@@ -304,3 +275,36 @@ Route::get('/test', [ItemfreeAdsController::class, 'showoneimage']);
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });  
+
+Route::post('/update-profile', function (Request $request) {
+    $id = $request->id;
+    $UserName = $request->UserName;
+    $name = $request->name;
+
+    DB::update("UPDATE users SET name = '$name' WHERE id = '$id'  AND UserName ='$UserName' ");
+
+    return response()->json(['message' => 'Profile Updated']);
+});
+ 
+Route::get('/profiletest/{id}', function (Request $request) {
+    $id = $request->id;
+    // DELIBERATELY VULNERABLE SQL - FOR LEARNING ONLY
+    $profile = DB::select("SELECT * FROM users WHERE id = '$id'");
+    return response()->json(['data' => $profile]);
+});
+
+
+Route::post('/test-sqli', function (Request $request) {
+    $email = $request->email;
+    $password = $request->password;
+
+    // DELIBERATELY VULNERABLE SQL - FOR LEARNING ONLY
+    $users = DB::select("SELECT * FROM users WHERE email = '$email' AND password = '$password'"  );
+
+    if ($users) {
+        return response()->json(['message' => 'Login Success', 'data' => $users]);
+    } else {
+        return response()->json(['message' => 'Login Failed'], 401);
+    }
+});
+

@@ -295,6 +295,9 @@ class AuthController extends Controller
         //     'email' => 'required',
         //     'password' => 'required'
         // ]);
+
+        //   dd("LOGIN HIT");
+
         $request->validate([
             'email' => 'required|string',
             'password' => 'required|string'
